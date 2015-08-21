@@ -42,6 +42,12 @@
 					class="form-control" id="id" name="id">
 			</div>
 			<div class="form-group">
+				<label for="type">Class</label> <select
+					class="form-control" id="class" name="class">
+					${classes}
+				</select>
+			</div>
+			<div class="form-group">
 				<label for="type">Search by Type</label> <select
 					class="form-control" id="type" name="type">
 					<option></option>
@@ -51,6 +57,7 @@
 					<option>Project</option>
 				</select>
 			</div>
+			
 			<div class="checkbox">
 				<label><input type="checkbox" name="high" value="high">Highest</label>
 			</div>

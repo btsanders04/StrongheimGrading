@@ -61,6 +61,7 @@ public class Grades extends HttpServlet {
 		String high = request.getParameter("high");
 		String low = request.getParameter("low");
 		String weighted = request.getParameter("weighted");
+		String classType = request.getParameter("class");
 		if (request.getParameter("submit") != null) {
 			try {
 				String findAverage = "";
@@ -68,16 +69,17 @@ public class Grades extends HttpServlet {
 				String findLow = "";
 				String findWeight ="";
 				if (avg != null)
-					findAverage = sqlGen("avg", type, id);
+					findAverage = sqlGen("avg", type, id,classType);
 				if (high != null)
-					findHigh = sqlGen("high", type, id);
+					findHigh = sqlGen("high", type, id,classType);
 				if (low != null)
-					findLow = sqlGen("low", type, id);
+					findLow = sqlGen("low", type, id,classType);
 				if (weighted != null)
-					findWeight = sqlGen("gpa", type, id);
-			//	System.out.println(findAverage);
-			//	System.out.println(findHigh);
-			//	System.out.println(findLow);
+					findWeight = sqlGen("gpa", type, id,classType);
+				System.out.println(findAverage);
+				System.out.println(findHigh);
+				System.out.println(findLow);
+				System.out.println(findWeight);
 				String average = "";
 				String top = "";
 				String bottom = "";
@@ -104,6 +106,7 @@ public class Grades extends HttpServlet {
 				request.setAttribute("high", top);
 				request.setAttribute("low", bottom);
 				request.setAttribute("gpa", weightGPA);
+				request.setAttribute("classes", Assignments.getClasses());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -132,30 +135,35 @@ public class Grades extends HttpServlet {
 		return grade;
 	}
 
-	private String sqlGen(String grade, String type, String id) {
-		String where = "";
-		if (type.equals("")) {
-			where = "studentid='" + id + "'";
-		//	System.out.println("No Type");
-		} else if (id.equals("")) {
-			where = "assignType='" + type + "'";
-			//System.out.println("No id");
-		} else {
-			where += "studentid='" + id + "' and assignType='" + type + "'";
-			//System.out.println("Both");
+	private String sqlGen(String grade, String type, String id, String classType) {
+		String sql = "class='"+classType+"' and ";
+		boolean and=false;
+		if(!id.equals("")){
+			sql+="studentid='"+id+"'";
+			and=true;
+			System.out.println("No Type");
 		}
+	    if(!type.equals("")){
+	    	if(and){
+	    		sql+=" and ";
+	    	}
+			sql+="assignType='"+type+"'";
+			System.out.println("No id");
+		}
+		
+		//else if(class)
 		switch (grade) {
 		case ("avg"):
-			return "select avg(grade) as average from gradebook where " + where;
+			return "select avg(grade) as average from gradebook where "+sql;
 		case ("high"):
-			return "select * from (select  grade from gradebook where " + where
+			return "select * from (select  grade from gradebook where " + sql
 					+ " order by grade desc) where rownum=1";
 		case ("low"):
-			return "select * from (select  grade from gradebook where " + where
+			return "select * from (select  grade from gradebook where " + sql 
 					+ " order by grade asc) where rownum=1";
 		case("gpa"):
 			return "select round(((sum(grade*weight))/sum(weight)),1) as average "+
-					"from gradebook where "+where;
+					"from gradebook where " +sql;
 		}
 		return "";
 	}

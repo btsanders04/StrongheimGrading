@@ -108,7 +108,7 @@ public class Assignments extends HttpServlet {
 				request, response);
 	}
 	
-	private String getClasses(){
+	public static String getClasses(){
 		String sql = "select class from gradebook group by class";
 		String classes="";
 		try {
