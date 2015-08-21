@@ -67,15 +67,15 @@ public class Grades extends HttpServlet {
 				String findAverage = "";
 				String findHigh = "";
 				String findLow = "";
-				String findWeight ="";
+				String findWeight = "";
 				if (avg != null)
-					findAverage = sqlGen("avg", type, id,classType);
+					findAverage = sqlGen("avg", type, id, classType);
 				if (high != null)
-					findHigh = sqlGen("high", type, id,classType);
+					findHigh = sqlGen("high", type, id, classType);
 				if (low != null)
-					findLow = sqlGen("low", type, id,classType);
+					findLow = sqlGen("low", type, id, classType);
 				if (weighted != null)
-					findWeight = sqlGen("gpa", type, id,classType);
+					findWeight = sqlGen("gpa", type, id, classType);
 				System.out.println(findAverage);
 				System.out.println(findHigh);
 				System.out.println(findLow);
@@ -88,43 +88,51 @@ public class Grades extends HttpServlet {
 				if (!findAverage.equals(""))
 					average = printResult(DBQuery.getFromDB(findAverage),
 							"Average");
-			//	System.out.println(average);
+				// System.out.println(average);
 
 				if (!findHigh.equals(""))
 					top = printResult(DBQuery.getFromDB(findHigh), "High");
-			//	System.out.println(top);
+				// System.out.println(top);
 
 				if (!findLow.equals(""))
 					bottom = printResult(DBQuery.getFromDB(findLow), "Low");
-			//	System.out.println(bottom);
-				
+				// System.out.println(bottom);
+
 				if (!findWeight.equals(""))
-					weightGPA = printResult(DBQuery.getFromDB(findWeight), "Weighted Grade");
-			//	System.out.println(weightGPA);
+					weightGPA = printResult(DBQuery.getFromDB(findWeight),
+							"Weighted");
+				// System.out.println(weightGPA);
 
 				request.setAttribute("average", average);
 				request.setAttribute("high", top);
 				request.setAttribute("low", bottom);
 				request.setAttribute("gpa", weightGPA);
-				request.setAttribute("classes", Assignments.getClasses());
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		request.setAttribute("classes", Assignments.getClasses());
 
+		try {
+			DBQuery.conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getServletContext().getRequestDispatcher("/average.jsp").forward(
 				request, response);
 	}
 
 	private String printResult(ResultSet result, String type) {
 
-		String grade = "<div class=\"container\"> "
-				+ "<table class=\"table table-bordered\"><thead><tr><th>"
-				+ type + "</th>" + "</thead><tbody>";
+		String grade = "<div class=\"container col-sm-3\"  align=\"center\"> "
+				+ "<table class=\"table table-bordered \"><thead><tr><th>"
+				+ type + "</th></tr>" + "</thead><tbody>";
 		try {
-			if(result.next()) {
-				grade += "<tr><td>" + result.getString(1) + "</td>";
+			if (result.next()) {
+				grade += "<td>" + result.getString(1) + "</td>";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -136,34 +144,35 @@ public class Grades extends HttpServlet {
 	}
 
 	private String sqlGen(String grade, String type, String id, String classType) {
-		String sql = "class='"+classType+"' and ";
-		boolean and=false;
-		if(!id.equals("")){
-			sql+="studentid='"+id+"'";
-			and=true;
+		String sql = "class='" + classType + "' and ";
+		boolean and = false;
+		if (!id.equals("")) {
+			sql += "studentid='" + id + "'";
+			and = true;
 			System.out.println("No Type");
 		}
-	    if(!type.equals("")){
-	    	if(and){
-	    		sql+=" and ";
-	    	}
-			sql+="assignType='"+type+"'";
+		if (!type.equals("")) {
+			if (and) {
+				sql += " and ";
+			}
+			sql += "assignType='" + type + "'";
 			System.out.println("No id");
 		}
-		
-		//else if(class)
+
+		// else if(class)
 		switch (grade) {
 		case ("avg"):
-			return "select avg(grade) as average from gradebook where "+sql;
+			return "select round(avg(grade),2) as average from gradebook where "
+					+ sql;
 		case ("high"):
 			return "select * from (select  grade from gradebook where " + sql
 					+ " order by grade desc) where rownum=1";
 		case ("low"):
-			return "select * from (select  grade from gradebook where " + sql 
+			return "select * from (select  grade from gradebook where " + sql
 					+ " order by grade asc) where rownum=1";
-		case("gpa"):
-			return "select round(((sum(grade*weight))/sum(weight)),1) as average "+
-					"from gradebook where " +sql;
+		case ("gpa"):
+			return "select round(((sum(grade*weight))/sum(weight)),2) as average "
+					+ "from gradebook where " + sql;
 		}
 		return "";
 	}

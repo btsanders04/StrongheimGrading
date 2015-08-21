@@ -55,44 +55,43 @@
 			</div>
 			<form role="form">
 				<div class="form-group">
-					<label for="class">Select Class:</label> <select class="form-control"
-						name="class" id="class">
+					<label for="class">Select Class:</label> <select
+						class="form-control" name="class" id="class">
 						<option>9:30am Earth Science</option>
 						<option>1:00pm Physics</option>
 					</select>
 
 				</div>
-			<form role="form">
-				<div class="form-group">
-					<label for="type">Select Type:</label> <select class="form-control"
-						name="type" id="type">
-						<option>Homework</option>
-						<option>Quiz</option>
-						<option>Test</option>
-						<option>Project</option>
-					</select>
+				<form role="form">
+					<div class="form-group">
+						<label for="type">Select Type:</label> <select
+							class="form-control" name="type" id="type">
+							<option>Homework</option>
+							<option>Quiz</option>
+							<option>Test</option>
+							<option>Project</option>
+						</select>
 
-				</div>
-				<div class="form-group">
-					<label for="date">Date:</label> <input type="Date"
-						class="form-control" name="date" id="date"
-						placeholder="Enter Date">
-				</div>
-				<div class="form-group">
-					<label for="grade">Grade:</label> <input type="number" min="0"
-						max="100" class="form-control" name="grade" id="grade"
-						placeholder="Enter Grade">
-				</div>
-				<div class="form-group">
-				<label for="weight">Weight:</label> <input type="number" min="1"
-						max="10" name="weight" id="weight"
-						>
-					<div class="slider sliderSimple"></div>
-					
-				</div>
-				<button type="submit" name="submit" class="btn btn-default">Submit</button>
-			</form>
+					</div>
+					<div class="form-group">
+						<label for="date">Date:</label> <input type="Date"
+							class="form-control" name="date" id="date"
+							placeholder="Enter Date">
+					</div>
+					<div class="form-group">
+						<label for="grade">Grade:</label> <input type="number" min="0"
+							max="100" class="form-control" name="grade" id="grade"
+							placeholder="Enter Grade">
+					</div>
+					<div class="form-group">
+						<label for="weight">Weight:</label> <input type="number" min="1"
+							max="10" name="weight" id="weight">
+						<div class="slider sliderSimple"></div>
 
-			<script src="ui_sliders-progress.js"></script>
+					</div>
+					<button type="submit" name="submit" class="btn btn-default">Submit</button>
+				</form>
+
+				<script src="ui_sliders-progress.js"></script>
 </body>
 </html>

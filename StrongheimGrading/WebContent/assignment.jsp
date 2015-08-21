@@ -39,13 +39,12 @@
 		<form role="form" action="Assignments" method="POST">
 			<div class="form-group">
 				<label for="id">Search by ID</label> <input type="text"
-					class="form-control" id="id" name="id">
+					class="form-control" id="id" name="id" placeholder="Enter ID">
 			</div>
 			<div class="form-group">
 				<label for="type">Search by Class</label> <select
 					class="form-control" id="class" name="class">
-					<option></option>
-					${classes}
+					<option></option> ${classes}
 				</select>
 			</div>
 			<div class="form-group">

@@ -39,12 +39,11 @@
 		<form role="form">
 			<div class="form-group" action="Record" method="POST">
 				<label for="usr">Search by ID</label> <input type="text"
-					class="form-control" id="id" name="id">
+					class="form-control" id="id" name="id" placeholder="Enter ID">
 			</div>
 			<div class="form-group">
-				<label for="type">Class</label> <select
-					class="form-control" id="class" name="class">
-					${classes}
+				<label for="type">Class</label> <select class="form-control"
+					id="class" name="class"> ${classes}
 				</select>
 			</div>
 			<div class="form-group">
@@ -57,7 +56,6 @@
 					<option>Project</option>
 				</select>
 			</div>
-			
 			<div class="checkbox">
 				<label><input type="checkbox" name="high" value="high">Highest</label>
 			</div>
@@ -68,11 +66,15 @@
 				<label><input type="checkbox" name="low" value="low">Lowest</label>
 			</div>
 			<div class="checkbox">
-				<label><input type="checkbox" name="weighted" value="weighted">Weighted Grade</label>
+				<label><input type="checkbox" name="weighted"
+					value="weighted">Weighted</label>
 			</div>
 			<button type="submit" name="submit" class="btn btn-default">Submit</button>
 		</form>
 	</div>
-	${average} ${high} ${low} ${gpa}
+	<br>
+	<br>
+	<div class="container row-sm-offset-1">${average}${high}${low}
+		${gpa}</div>
 </body>
 </html>
