@@ -24,7 +24,12 @@ public class Record extends HttpServlet {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
+		try {
+			DBQuery.conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		super.destroy();
 	}
 
@@ -87,12 +92,6 @@ public class Record extends HttpServlet {
 			}
 		}
 
-		try {
-			DBQuery.conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		getServletContext().getRequestDispatcher("/grading.jsp").forward(
 				request, response);
 	}

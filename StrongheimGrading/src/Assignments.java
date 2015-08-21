@@ -26,7 +26,12 @@ public class Assignments extends HttpServlet {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
+		try {
+			DBQuery.conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		super.destroy();
 	}
 
@@ -110,12 +115,6 @@ public class Assignments extends HttpServlet {
 		}
 		request.setAttribute("assignment", assignment);
 		request.setAttribute("classes", getClasses());
-		try {
-			DBQuery.conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		getServletContext().getRequestDispatcher("/assignment.jsp").forward(
 				request, response);
 	}

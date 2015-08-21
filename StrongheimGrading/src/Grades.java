@@ -15,7 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 public class Grades extends HttpServlet {
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
+		try {
+			DBQuery.conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		super.destroy();
 	}
 
@@ -115,12 +120,6 @@ public class Grades extends HttpServlet {
 		}
 		request.setAttribute("classes", Assignments.getClasses());
 
-		try {
-			DBQuery.conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		getServletContext().getRequestDispatcher("/average.jsp").forward(
 				request, response);
 	}
