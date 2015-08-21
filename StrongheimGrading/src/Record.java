@@ -61,9 +61,11 @@ public class Record extends HttpServlet {
 		String type = request.getParameter("type");
 		String date = request.getParameter("date");
 		String grade = request.getParameter("grade");
-		String sql = "insert into gradebook(studentId,assignment,assignType,submitDate,grade)"
+		String weight = request.getParameter("weight");
+		String classTime = request.getParameter("class");
+		String sql = "insert into gradebook(studentId,assignment,assignType,submitDate,grade,weight,class)"
 				+ "values('"+studentId+"','"+assignment+"','"+type+"','"+
-				date+"',"+grade+")";
+				date+"',"+grade+","+weight+",'"+classTime+"')";
 		try {
 			DBQuery.updateDB(sql);
 		} catch (SQLException e) {

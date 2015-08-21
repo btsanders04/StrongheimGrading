@@ -26,14 +26,27 @@
 				<li><a href="Grades">Search Grades</a></li>
 				<li><a href="#"></a></li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+						Sign Up</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+						Login</a></li>
+			</ul>
 		</div>
 	</div>
 	</nav>
 	<div class="container">
-		<form role="form"  action="Record" method="POST">
+		<form role="form" action="Assignments" method="POST">
 			<div class="form-group">
 				<label for="id">Search by ID</label> <input type="text"
 					class="form-control" id="id" name="id">
+			</div>
+			<div class="form-group">
+				<label for="type">Search by Class</label> <select
+					class="form-control" id="class" name="class">
+					<option></option>
+					${classes}
+				</select>
 			</div>
 			<div class="form-group">
 				<label for="type">Search by Type</label> <select
@@ -45,7 +58,7 @@
 					<option>Project</option>
 				</select>
 			</div>
-			<button type="submit" name= "submit" class="btn btn-default">Submit</button>
+			<button type="submit" name="submit" class="btn btn-default">Submit</button>
 		</form>
 	</div>
 	${assignment}

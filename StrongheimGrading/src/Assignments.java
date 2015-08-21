@@ -55,24 +55,36 @@ public class Assignments extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String type = request.getParameter("type");
+		String classTime = request.getParameter("class");
 		String sql="select * from gradebook where ";
 		String assignment="";
+		boolean and = false;
 		if(id!=null && type!=null){
 		
-		    if(type.equals("")){
+		    if(!id.equals("")){
 				sql+="studentid='"+id+"'";
+				and=true;
 				System.out.println("No Type");
 			}
-			else if(id.equals("")){
+		    if(!type.equals("")){
+		    	if(and){
+		    		sql+=" and ";
+		    	}
 				sql+="assignType='"+type+"'";
+				and=true;
 				System.out.println("No id");
 			}
-			else{
-				sql+="studentid='"+id+"' and assignType='"+type+"'";
+			
+			//else if(class)
+			if(!classTime.equals("")){
+				if(and){
+					sql+=" and ";
+				}
+				sql+="class='"+classTime+"'";
 				System.out.println("Both");
 				}
-		}
-		
+			}
+		System.out.println(sql);
 		if(request.getParameter("submit")!=null){
 		try {
 			ResultSet result = DBQuery.getFromDB(sql);
@@ -91,8 +103,24 @@ public class Assignments extends HttpServlet {
 		}
 		}
 		request.setAttribute("assignment", assignment);
+		request.setAttribute("classes",getClasses());
 		getServletContext().getRequestDispatcher("/assignment.jsp").forward(
 				request, response);
+	}
+	
+	private String getClasses(){
+		String sql = "select class from gradebook group by class";
+		String classes="";
+		try {
+			ResultSet result = DBQuery.getFromDB(sql);
+			while(result.next()){
+				classes+="<option>"+result.getString("class") +"</option>";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return classes;
 	}
 
 }

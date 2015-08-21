@@ -26,12 +26,18 @@
 				<li class="active"><a href="Grades">Search Grades</a></li>
 				<li><a href="#"></a></li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+						Sign Up</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+						Login</a></li>
+			</ul>
 		</div>
 	</div>
 	</nav>
 	<div class="container">
 		<form role="form">
-			<div class="form-group"  action="Record" method="POST">
+			<div class="form-group" action="Record" method="POST">
 				<label for="usr">Search by ID</label> <input type="text"
 					class="form-control" id="id" name="id">
 			</div>
@@ -46,19 +52,20 @@
 				</select>
 			</div>
 			<div class="checkbox">
-				<label><input type="checkbox" name = "high" value="high">Highest</label>
+				<label><input type="checkbox" name="high" value="high">Highest</label>
 			</div>
 			<div class="checkbox">
-				<label><input type="checkbox" name = "avg" value="avg">Average</label>
+				<label><input type="checkbox" name="avg" value="avg">Average</label>
 			</div>
 			<div class="checkbox">
-				<label><input type="checkbox" name = "low" value="low">Lowest</label>
+				<label><input type="checkbox" name="low" value="low">Lowest</label>
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" name="weighted" value="weighted">Weighted Grade</label>
 			</div>
 			<button type="submit" name="submit" class="btn btn-default">Submit</button>
 		</form>
 	</div>
-	${average}
-	${high}
-	${low}
+	${average} ${high} ${low} ${gpa}
 </body>
 </html>
